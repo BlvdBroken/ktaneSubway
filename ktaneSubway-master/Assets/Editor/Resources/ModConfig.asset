@@ -15,6 +15,6 @@ MonoBehaviour:
   title: Subway
   author: BlvdBroken and EpicToast
   description: "Listen to Face Jam.\n\r\nModule ID: subway\nManual: https://ktane.timwi.de/HTML/Subway.html"
-  version: 2.6
+  version: 2.7
   outputFolder: build
   previewImage: {fileID: 2800000, guid: 15669ff93eae5ae4ca3df3f01d101898, type: 3}

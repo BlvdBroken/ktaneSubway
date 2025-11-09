@@ -836,7 +836,6 @@ public class subwayScript : MonoBehaviour {
         }
 
         DebugMsg("You had one simple job, and you failed. Now, you must die.");
-
         while (!solved)
         {
             Module.HandleStrike();
@@ -908,19 +907,47 @@ public class subwayScript : MonoBehaviour {
                 if (!(sortTPList.Contains(submitted)))
                     yield return "sendtochat Sorry, I'm not quite sure what a " + submitted + " is.";
             }
-            orderActivated = true;
-            buttonText.text = "NEXT";
-            DebugMsg("Order button pressed. Order up!");
-            trayCoverObject.SetActive(false);
-            MoveIngredient(0);
-            foreach (var item in sortTPList)
+            foreach (String item in prepared)
             {
-                if (prepared.Contains(item))
-                    ingredientSelectable.OnInteract();
-                arrowSelectables[1].OnInteract();
-                nextCounter += 1;
-                if (nextCounter % 6 == 0)
-                    orderSelectable.OnInteract();
+                DebugMsg(item);
+            }
+            foreach (String bread in sortTPList.Take(5))
+            {
+                DebugMsg(bread);
+            }
+            if (prepared.Length == 0)
+            {
+                yield return "sendtochat You didn't even make a sandwich... You get fired on the spot.";
+                yield return "detonate";
+            }
+            else if (!(prepared.Intersect(sortTPList.Take(5)).Any()))
+            {
+                yield return "sendtochat You didn't put any bread on it! It's a sandwich. How could you forget the bread? The customer is rendered speechless as you hand them the \"sandwich\" you just created. In your hands is a sopping heap of various sandwich ingredients. Without the necessary bread, it drips down your sleeves and coats the floor. Your co-worker stares at you in awe. Or fear. Or both. They knew this job was mind-numbing, but they didn't know it was possible for a human being to be this far gone.";
+                yield return new WaitForSeconds(1f);
+                if (prepared.Contains("toast"))
+                {
+                    yield return "sendtochat You even toasted it. You toasted it, and you didn't put any bread. You put a pile of sandwich ingredients in the oven and had, like, a full minute to think about what you'd done. The toaster oven is now coated in a puddle of melted cheese and liquefied meat. The skin of your hands starts to slough off from the heat. You would be in an extreme amount of pain if you weren't so absent mentally.";
+                    yield return new WaitForSeconds(1f);
+                }
+                yield return "sendtochat After what feels like an unbearable amount of time, your manager comes out to investigate the disturbance. You get fired on the spot.";
+                yield return "detonate";
+            }
+            else
+            {
+                orderActivated = true;
+                buttonText.text = "NEXT";
+                DebugMsg("Order button pressed. Order up!");
+                trayCoverObject.SetActive(false);
+                MoveIngredient(0);
+                foreach (var item in sortTPList)
+                {
+                    if (prepared.Contains(item))
+                        ingredientSelectable.OnInteract();
+                    arrowSelectables[1].OnInteract();
+                    nextCounter += 1;
+                    if (nextCounter % 6 == 0)
+                        orderSelectable.OnInteract();
+                }
             }
 		} else if ((command.Split()[0] == "keep") && (command.Split().Length == 3))
         {
