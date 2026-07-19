@@ -695,7 +695,7 @@ public class subwayScript : MonoBehaviour {
         var possibleOrder = order.Select(list => list.ToList()).ToArray();
         bool catsup = false;
 
-        tempModifications[3]++; // cannot remove the last vegetable
+        //tempModifications[3]++; // cannot remove the last vegetable // This caused a bug where you could not edit the last vegetable.
         if (order[0].Contains(3))
         {
             tempModifications[0]++;
@@ -743,7 +743,7 @@ public class subwayScript : MonoBehaviour {
             tempChanges[0]++;
             remainingThreshold -= 3;
         } // change bread
-        while (remainingThreshold >= 3 && order[3].Count() - tempModifications[3] > 0)
+        while (remainingThreshold >= 3 && order[3].Count() - tempModifications[3] > 0 && tempRemovals[3] + 1 < order[3].Count()) // dont remove last veggie
         {
             tempModifications[3]++;
             tempRemovals[3]++;

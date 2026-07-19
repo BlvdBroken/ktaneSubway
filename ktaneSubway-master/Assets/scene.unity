@@ -832,6 +832,12 @@ Prefab:
       propertyPath: StrikeCount
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 114848120511536268, guid: 8814ea52310d2614a9feda02ec355ae4,
+        type: 2}
+      propertyPath: EdgeworkConfiguration
+      value: 
+      objectReference: {fileID: 11400000, guid: a1a81b7104f1e854580a3c416d58d385,
+        type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8814ea52310d2614a9feda02ec355ae4, type: 2}
   m_IsPrefabParent: 0
